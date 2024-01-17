@@ -1,6 +1,7 @@
 target/
 /target
 *.pdb
+data/*.jpg
 **.o
 **.obj
 *.dSYM
