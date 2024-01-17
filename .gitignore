@@ -1,1 +1,17 @@
+target/
 /target
+*.pdb
+**.o
+**.obj
+*.dSYM
+*.so
+*.app
+*.deb
+profile*
+coverage.*
+**/.linter.json
+Cargo.lock
+.cargo/registry/index/*
+.cargo/git/checkouts/*/*
+.cargo/git/dist/*
+.cargo/bin-hooks/
