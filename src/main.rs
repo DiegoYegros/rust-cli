@@ -16,7 +16,7 @@ fn main() {
             exit(0);
         }
         if num == 1 {
-            search_word_in_file();
+            command_search_word_in_file();
         } else {
             println!("Hmm, that didn't work. maybe try again?");
             press_enter_to_continue();
@@ -24,7 +24,7 @@ fn main() {
     }
 }
 
-fn search_word_in_file() {
+fn command_search_word_in_file() {
     println!("Great! What word are we looking for?");
     let mut word: String = String::new();
     while word.trim().is_empty() {
