@@ -1,6 +1,9 @@
 use std::env;
 use std::process::exit;
 mod rest_client;
+use std::thread;
+use std::time::Instant;
+
 fn main() {
     loop {
         clearscreen();
@@ -9,6 +12,7 @@ fn main() {
             "Select an option:
     1. Search for a word in a file
     2. Consume REST API
+    3. Multi-threaded Test
     0. Exit"
         );
         let num: i32 = get_input_from_user();
@@ -20,6 +24,8 @@ fn main() {
             command_search_word_in_file();
         } else if num == 2 {
             command_consume_rest_api();
+        } else if num == 3 {
+            command_multithread_test();
         } else {
             println!("Hmm, that didn't work. maybe try again?");
             press_enter_to_continue();
@@ -107,6 +113,61 @@ fn get_input_from_user() -> i32 {
 }
 
 fn command_consume_rest_api() {
-    rest_client::main();
+    let _ = rest_client::main();
     press_enter_to_continue();
+}
+
+fn command_multithread_test() {
+    test_single_thread();
+    test_multi_thread();
+    press_enter_to_continue();
+}
+
+fn test_single_thread() {
+    let mut now = Instant::now();
+    let mut x: u64 = 0;
+    for i in 1..100000001 {
+        x = i;
+    }
+    let mut x: u64 = 0;
+    for i in 1..100000001 {
+        x = i;
+    }
+    let mut x: u64 = 0;
+    for i in 1..100000001 {
+        x = i;
+    }
+    println!(
+        "Elapsed time is {}ms with a single thread.",
+        now.elapsed().as_millis()
+    );
+}
+
+fn test_multi_thread() {
+    let counter = std::sync::Arc::new(std::sync::Mutex::new(0));
+    let mut handles = Vec::new();
+
+    let start = Instant::now();
+
+    for _ in 0..3 {
+        let counter = std::sync::Arc::clone(&counter);
+        let handle = thread::spawn(move || {
+            let mut num: u64 = 0;
+            for i in 1..100000001 {
+                num += i;
+            }
+            let mut guard = counter.lock().unwrap();
+            *guard += num;
+        });
+        handles.push(handle);
+    }
+
+    for h in handles {
+        h.join().unwrap();
+    }
+
+    println!(
+        "Elapsed time is {}ms with 3 threads.",
+        start.elapsed().as_millis()
+    );
 }
