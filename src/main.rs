@@ -105,6 +105,7 @@ fn get_input_from_user() -> i32 {
     let num = line.trim().parse::<i32>().unwrap();
     return num;
 }
+
 fn command_consume_rest_api() {
     rest_client::main();
     press_enter_to_continue();
