@@ -124,18 +124,18 @@ fn command_multithread_test() {
 }
 
 fn test_single_thread() {
-    let mut now = Instant::now();
-    let mut x: u64 = 0;
+    let now = Instant::now();
+    let mut _x: u64 = 0;
     for i in 1..100000001 {
-        x = i;
+        _x = i;
     }
-    let mut x: u64 = 0;
+
     for i in 1..100000001 {
-        x = i;
+        _x = i;
     }
-    let mut x: u64 = 0;
+
     for i in 1..100000001 {
-        x = i;
+        _x = i;
     }
     println!(
         "Elapsed time is {}ms with a single thread.",
