@@ -1,6 +1,6 @@
 use std::env;
 use std::process::exit;
-
+mod rest_client;
 fn main() {
     loop {
         clearscreen();
@@ -8,6 +8,7 @@ fn main() {
         println!(
             "Select an option:
     1. Search for a word in a file
+    2. Consume REST API
     0. Exit"
         );
         let num: i32 = get_input_from_user();
@@ -17,6 +18,8 @@ fn main() {
         }
         if num == 1 {
             command_search_word_in_file();
+        } else if num == 2 {
+            command_consume_rest_api();
         } else {
             println!("Hmm, that didn't work. maybe try again?");
             press_enter_to_continue();
@@ -101,4 +104,8 @@ fn get_input_from_user() -> i32 {
     std::io::stdin().read_line(&mut line).unwrap();
     let num = line.trim().parse::<i32>().unwrap();
     return num;
+}
+fn command_consume_rest_api() {
+    rest_client::main();
+    press_enter_to_continue();
 }
