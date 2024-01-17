@@ -1,7 +1,7 @@
 use reqwest::blocking::get;
 use std::env;
 use std::fs::File;
-use std::io::{Read, Write};
+use std::io::Write;
 pub fn main() -> Result<(), Box<dyn std::error::Error>> {
     const URL: &str = "https://cataas.com/cat";
     let response = get(URL)?;
